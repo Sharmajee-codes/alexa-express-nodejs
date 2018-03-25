@@ -90,6 +90,21 @@ function saySecondary(intent, session, callback){
     //callback sends it back
 }
 
+function sayIncidentCreation(intent, session, callback){
+    console.log("Creation Incident INTENT TRIGGERED");
+    console.log("Before Response");
+    console.log(JSON.stringify(intent));
+    const sessionAttributes = {};
+    const cardTitle = 'Secondary Intent Triggered!';
+    const speechOutput = '<speak>Testing worked</speak>';
+    const repromptText = '<speak>Are you there? Speak up.</speak>';
+    const shouldEndSession = false;
+    //':ask' mode
+    callback(sessionAttributes,buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
+    //buildSpeechletResponse sends to uppermost block for ssml response processing
+    //callback sends it back
+}
+
 
 // ---------------------------------------------- Events --------------------------------------------------------------
 
@@ -134,8 +149,8 @@ function onIntent(intentRequest, session, callback) {
     else if (intentName === 'SecondaryIntent') {
         saySecondary(intent, session, callback);
     }
-    else if (intentName === 'InputOTPIntent') {
-        validateOTP(callback);
+    else if (intentName === 'CreateIncidentIntent') {
+        sayIncidentCreation(intent, session, callback);
     }
     else if (intentName === 'AMAZON.HelpIntent') {
         getWelcomeResponse(callback);
