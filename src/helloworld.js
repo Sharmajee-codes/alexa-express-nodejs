@@ -93,9 +93,10 @@ function saySecondary(intent, session, callback){
 function sayIncidentCreation(intent, session, callback){
     console.log("Creation Incident INTENT TRIGGERED");
     console.log("Before Response : "+JSON.stringify(intent));
+    var param = intent.slots.severity.value;
     const sessionAttributes = {};
     const cardTitle = 'Secondary Intent Triggered!';
-    const speechOutput = '<speak>Testing worked</speak>';
+    const speechOutput = `<speak>Testing worked. Parameter captured ${param}</speak>`;
     const repromptText = '<speak>Are you there? Speak up.</speak>';
     const shouldEndSession = false;
     //':ask' mode
