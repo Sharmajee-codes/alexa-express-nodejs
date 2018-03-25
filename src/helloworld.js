@@ -93,21 +93,9 @@ function saySecondary(intentRequest, session, callback){
 function sayIncidentCreation(intentRequest, session, callback){
     console.log("Creation Incident INTENT TRIGGERED");
     console.log("Before Response : "+JSON.stringify(intentRequest));
-    if (intentRequest.request.dialogState == "STARTED" || intentRequest.request.dialogState == "IN_PROGRESS"){
-           intentRequest.context.succeed({
-               "response": {
-                   "directives": [
-                       {
-                           "type": "Dialog.Delegate"
-                       }
-                   ],
-                   "shouldEndSession": false
-               },
-               "sessionAttributes": {}
-           });
-         }//Trigger Prompts
-         else{
-            var categoryslot = intentRequest.event.request.intent.slots.category.value;
+
+
+            //var categoryslot = intentRequest.event.request.intent.slots.category.value;
             const sessionAttributes = {};
             const cardTitle = 'Secondary Intent Triggered!';
             const speechOutput = `<speak>Testing worked. Parameter captured ${categoryslot}</speak>`;
@@ -117,7 +105,7 @@ function sayIncidentCreation(intentRequest, session, callback){
             callback(sessionAttributes,buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
             //buildSpeechletResponse sends to uppermost block for ssml response processing
             //callback sends it back
-  }
+
 
 }
 
