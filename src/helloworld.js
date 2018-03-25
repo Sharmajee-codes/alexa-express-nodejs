@@ -153,7 +153,7 @@ function onIntent(intentRequest, session, callback) {
     }
     else if (intentName === 'AMAZON.HelpIntent') {
         getWelcomeResponse(callback);
-    }
+    }//
     else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
         handleSessionEndRequest(callback);
     }
