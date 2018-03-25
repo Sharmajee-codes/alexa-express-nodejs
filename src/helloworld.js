@@ -93,7 +93,6 @@ function saySecondary(intent, session, callback){
 function sayIncidentCreation(intent, session, callback){
     console.log("Creation Incident INTENT TRIGGERED");
     console.log("Before Response");
-    console.log(JSON.stringify(intent));
     const sessionAttributes = {};
     const cardTitle = 'Secondary Intent Triggered!';
     const speechOutput = '<speak>Testing worked</speak>';
@@ -131,7 +130,7 @@ function onLaunch(launchRequest, session, callback) {
  */
 function onIntent(intentRequest, session, callback) {
     console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
-
+    console.log("Events : " + intentRequest);
     const intent = intentRequest.intent;
     const intentName = intentRequest.intent.name;
     console.log("Intent : "+intent);
