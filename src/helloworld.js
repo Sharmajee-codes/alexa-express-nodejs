@@ -63,7 +63,7 @@ function saySatisfactory(intent, session, callback) {
 
 // --------------------------------------- Functions that control the skill's behavior ---------------------------------------------------
 
-function sayHelloWorld(intent, session, callback){
+function sayHelloWorld(intentRequest, session, callback){
     console.log("HELLO WORLD INTENT TRIGGERED");
     const sessionAttributes = {};
     const cardTitle = 'Hello Intent Triggered!';
@@ -76,7 +76,7 @@ function sayHelloWorld(intent, session, callback){
     //callback sends it back
 }
 
-function saySecondary(intent, session, callback){
+function saySecondary(intentRequest, session, callback){
     console.log("TESTING SECONDARY INTENT TRIGGERED");
     console.log("Before Response");
     const sessionAttributes = {};
@@ -90,10 +90,15 @@ function saySecondary(intent, session, callback){
     //callback sends it back
 }
 
-function sayIncidentCreation(intent, session, callback){
+function sayIncidentCreation(intentRequest, session, callback){
     console.log("Creation Incident INTENT TRIGGERED");
     console.log("Before Response : "+JSON.stringify(intent));
     var param = intent.slots.severity.value;
+    if(){
+      //custom
+    }
+
+    else{
     const sessionAttributes = {};
     const cardTitle = 'Secondary Intent Triggered!';
     const speechOutput = `<speak>Testing worked. Parameter captured ${param}</speak>`;
@@ -103,6 +108,7 @@ function sayIncidentCreation(intent, session, callback){
     callback(sessionAttributes,buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
     //buildSpeechletResponse sends to uppermost block for ssml response processing
     //callback sends it back
+  }
 }
 
 
@@ -140,17 +146,17 @@ function onIntent(intentRequest, session, callback) {
 
     // Dispatch to your skill's intent handlers
     if (intentName === 'HelloWorldIntent') {
-        sayHelloWorld(intent, session, callback);
+        sayHelloWorld(intentRequest, session, callback);
     }
     else if (intentName === 'SatisfactoryIntent') {
-        saySatisfactory(intent, session, callback);
+        saySatisfactory(intentRequest, session, callback);
         console.log("After Response");
     }
     else if (intentName === 'SecondaryIntent') {
         saySecondary(intent, session, callback);
     }
     else if (intentName === 'CreateIncidentIntent') {
-        sayIncidentCreation(intent, session, callback);
+        sayIncidentCreation(intentRequest, session, callback);
     }
     else if (intentName === 'AMAZON.HelpIntent') {
         getWelcomeResponse(callback);
