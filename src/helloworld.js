@@ -94,11 +94,7 @@ function sayIncidentCreation(intentRequest, session, callback){
     console.log("Creation Incident INTENT TRIGGERED");
     console.log("Before Response : "+JSON.stringify(intent));
     var param = intent.slots.severity.value;
-    if(){
-      //custom
-    }
 
-    else{
     const sessionAttributes = {};
     const cardTitle = 'Secondary Intent Triggered!';
     const speechOutput = `<speak>Testing worked. Parameter captured ${param}</speak>`;
@@ -108,7 +104,7 @@ function sayIncidentCreation(intentRequest, session, callback){
     callback(sessionAttributes,buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
     //buildSpeechletResponse sends to uppermost block for ssml response processing
     //callback sends it back
-  }
+  
 }
 
 
