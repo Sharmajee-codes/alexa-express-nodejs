@@ -148,8 +148,8 @@ function onLaunch(launchRequest, session, callback) {
 function onIntent(intentRequest, session, callback) {
     console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
   //  console.log("Events : " + intentRequest);
-    const intent = intentRequest.intent;
-    const intentName = intentRequest.intent.name;
+    const intent = intentRequest.request.intent;
+    const intentName = intentRequest.request.intent.name;
     console.log("Intent : "+intent);
     console.log("Intent Name : "+intentName);
     //these variables save the current intent names
