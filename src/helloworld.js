@@ -92,7 +92,7 @@ function saySecondary(intentRequest, session, callback){
 
 function sayIncidentCreation(intentRequest, session, callback){
     console.log("Creation Incident INTENT TRIGGERED");
-    console.log("Before Response : "+JSON.stringify(intent));
+    console.log("Before Response : "+JSON.stringify(intentRequest));
     var param = intent.slots.severity.value;
 
     const sessionAttributes = {};
@@ -104,7 +104,7 @@ function sayIncidentCreation(intentRequest, session, callback){
     callback(sessionAttributes,buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
     //buildSpeechletResponse sends to uppermost block for ssml response processing
     //callback sends it back
-  
+
 }
 
 
@@ -133,7 +133,7 @@ function onLaunch(launchRequest, session, callback) {
  */
 function onIntent(intentRequest, session, callback) {
     console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
-    console.log("Events : " + intentRequest);
+  //  console.log("Events : " + intentRequest);
     const intent = intentRequest.intent;
     const intentName = intentRequest.intent.name;
     console.log("Intent : "+intent);
@@ -146,7 +146,7 @@ function onIntent(intentRequest, session, callback) {
     }
     else if (intentName === 'SatisfactoryIntent') {
         saySatisfactory(intentRequest, session, callback);
-        console.log("After Response");
+      //  console.log("After Response");
     }
     else if (intentName === 'SecondaryIntent') {
         saySecondary(intent, session, callback);
