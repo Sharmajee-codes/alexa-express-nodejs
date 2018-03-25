@@ -61,7 +61,7 @@ function saySatisfactory(intent, session, callback) {
     //SESSION END 'CancelIntent': SIMPLY CHANGE STRINGS. THIS IS FOR handleSessionEndRequest
 }
 
-// --------------------------------------- Functions that control the skill's behavior ---------------------------------------------------
+// ---------------------------------------User Defined Intent Functions that control the skill's behavior ---------------------------------------------------
 
 function sayHelloWorld(intentRequest, session, callback){
     console.log("HELLO WORLD INTENT TRIGGERED");
@@ -93,17 +93,31 @@ function saySecondary(intentRequest, session, callback){
 function sayIncidentCreation(intentRequest, session, callback){
     console.log("Creation Incident INTENT TRIGGERED");
     console.log("Before Response : "+JSON.stringify(intentRequest));
-
-
-    const sessionAttributes = {};
-    const cardTitle = 'Secondary Intent Triggered!';
-    const speechOutput = `<speak>Testing worked. Parameter captured.</speak>`;
-    const repromptText = '<speak>Are you there? Speak up.</speak>';
-    const shouldEndSession = false;
-    //':ask' mode
-    callback(sessionAttributes,buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
-    //buildSpeechletResponse sends to uppermost block for ssml response processing
-    //callback sends it back
+    if (intentRequest.request.dialogState == "STARTED" || intentRequest.request.dialogState == "IN_PROGRESS"){
+           intentRequest.context.succeed({
+               "response": {
+                   "directives": [
+                       {
+                           "type": "Dialog.Delegate"
+                       }
+                   ],
+                   "shouldEndSession": false
+               },
+               "sessionAttributes": {}
+           });
+         }//Trigger Prompts
+         else{
+            var categoryslot = intentRequest.event.request.intent.slots.category.value;
+            const sessionAttributes = {};
+            const cardTitle = 'Secondary Intent Triggered!';
+            const speechOutput = `<speak>Testing worked. Parameter captured ${categoryslot}</speak>`;
+            const repromptText = '<speak>Are you there? Speak up.</speak>';
+            const shouldEndSession = false;
+            //':ask' mode
+            callback(sessionAttributes,buildSpeechletResponse(null, speechOutput, repromptText, shouldEndSession));
+            //buildSpeechletResponse sends to uppermost block for ssml response processing
+            //callback sends it back
+  }
 
 }
 
@@ -195,7 +209,7 @@ module.exports = function(req, res, callback) {
                     callback(null, buildResponse(sessionAttributes, speechletResponse));
                 });
         } else if (event.request.type === 'IntentRequest') {
-            onIntent(event.request,
+            onIntent(event,
                 event.session,
                 (sessionAttributes, speechletResponse) => {
                     callback(null, buildResponse(sessionAttributes, speechletResponse));
